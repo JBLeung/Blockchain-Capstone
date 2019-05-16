@@ -21,7 +21,6 @@ contract Ownable {
         _owner = ownerAddress;
     }
 
-
     function transferOwnership(address newOwner) public onlyOwner {
         require(newOwner != address(0), "New owner address is not valid");
         _owner = newOwner;
@@ -33,12 +32,35 @@ contract Ownable {
     }
 }
 
-//  TODO's: Create a Pausable contract that inherits from the Ownable contract
-//  1) create a private '_paused' variable of type bool
-//  2) create a public setter using the inherited onlyOwner modifier
-//  3) create an internal constructor that sets the _paused variable to false
-//  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
-//  5) create a Paused & Unpaused event that emits the address that triggered the event
+contract Pausable is Ownable {
+    bool private _paused;
+
+    event Paused(address caller);
+    event Unpaused(address caller);
+
+    constructor() public {
+        _paused = false;
+    }
+
+    modifier whenNotPaused() {
+        require(_paused == false, "Is paused");
+        _;
+    }
+
+    modifier paused() {
+        require(_paused, "Is not paused");
+        _;
+    }
+
+    function setPausable(bool isPaused) public onlyOwner {
+        _paused = isPaused;
+        if (_paused) {
+            emit Paused(msg.sender);
+        } else {
+            emit Unpaused(msg.sender);
+        }
+    }
+}
 
 
 contract ERC165 {
