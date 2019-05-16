@@ -27,7 +27,7 @@ contract Ownable {
         emit OwnerShiptransfered(newOwner);
     }
 
-    function getOwnerAddress() public returns(address) {
+    function owner() public view returns(address) {
         return _owner;
     }
 }
@@ -156,7 +156,7 @@ contract ERC721 is Pausable, ERC165 {
         // require the given address to not be the owner of the tokenId
         require(to != tokenOwner, "The token owner cannot approve it");
 
-        address contractOwner = getOwnerAddress();
+        address contractOwner = owner();
         // require the msg sender to be the owner of the contract or isApprovedForAll() to be true
         require(contractOwner == msg.sender || isApprovedForAll(tokenOwner, msg.sender), "Not authorised to approve");
 
@@ -513,15 +513,15 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
-    function getName() external view returns(string memory) {
+    function name() external view returns(string memory) {
         return _name;
     }
 
-    function getSymbol() external view returns(string memory) {
+    function symbol() external view returns(string memory) {
         return _symbol;
     }
 
-    function getBaseTokenURI() external view returns(string memory) {
+    function baseTokenURI() external view returns(string memory) {
         return _baseTokenURI;
     }
 
