@@ -140,29 +140,36 @@ contract ERC721 is Pausable, ERC165 {
     }
 
     function balanceOf(address owner) public view returns (uint256) {
-        // TODO return the token balance of given address
-        // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
+        return _ownedTokensCount[owner].current();
     }
 
     function ownerOf(uint256 tokenId) public view returns (address) {
-        // TODO return the owner of the given tokenId
+        require(_exists(tokenId), "owner not exist");
+        return _tokenOwner[tokenId];
     }
 
 //    @dev Approves another address to transfer the given token ID
     function approve(address to, uint256 tokenId) public {
-        
-        // TODO require the given address to not be the owner of the tokenId
 
-        // TODO require the msg sender to be the owner of the contract or isApprovedForAll() to be true
+        address tokenOwner = ownerOf(tokenId);
 
-        // TODO add 'to' address to token approvals
+        // require the given address to not be the owner of the tokenId
+        require(to != tokenOwner, "The token owner cannot approve it");
 
-        // TODO emit Approval Event
+        address contractOwner = getOwnerAddress();
+        // require the msg sender to be the owner of the contract or isApprovedForAll() to be true
+        require(contractOwner == msg.sender || isApprovedForAll(tokenOwner, msg.sender), "Not authorised to approve");
+
+        setApprovalForAll(to, true);
+
+        emit Approval(tokenOwner, to, tokenId);
 
     }
 
     function getApproved(uint256 tokenId) public view returns (address) {
-        // TODO return token approval if it exists
+        address approvalAddress = _tokenApprovals[tokenId];
+        require(approvalAddress != address(0), "No approval address");
+        return approvalAddress;
     }
 
     /**
@@ -172,7 +179,7 @@ contract ERC721 is Pausable, ERC165 {
      * @param approved representing the status of the approval to be set
      */
     function setApprovalForAll(address to, bool approved) public {
-        require(to != msg.sender, "");
+        require(to != msg.sender, "Cannot set approval to caller");
         _operatorApprovals[msg.sender][to] = approved;
         emit ApprovalForAll(msg.sender, to, approved);
     }
@@ -188,7 +195,7 @@ contract ERC721 is Pausable, ERC165 {
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public {
-        require(_isApprovedOrOwner(msg.sender, tokenId), "");
+        require(_isApprovedOrOwner(msg.sender, tokenId), "Is not approved owner");
 
         _transferFrom(from, to, tokenId);
     }
@@ -243,29 +250,29 @@ contract ERC721 is Pausable, ERC165 {
     }
 
     // @dev Internal function to mint a new token
-    // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
     function _mint(address to, uint256 tokenId) internal {
+        require(to != address(0), "Given an invalid address");
+        require(!_exists(tokenId), "Token already exisit");
 
-        // TODO revert if given tokenId already exists or given address is invalid
+        _tokenOwner[tokenId] = to;
+        _ownedTokensCount[to].increment();
 
-        // TODO mint tokenId to given address & increase token count of owner
-
-        // TODO emit Transfer event
+        emit Transfer(address(0), to, tokenId);
     }
 
     // @dev Internal function to transfer ownership of a given token ID to another address.
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
     function _transferFrom(address from, address to, uint256 tokenId) internal {
+        // require from address is the owner of the given token
+        require(from == ownerOf(tokenId), "Must be the token owner");
+        // require token is being transfered to valid address
+        require(to != address(0), "Receive address is not valid");
 
-        // TODO: require from address is the owner of the given token
+        _clearApproval(tokenId);
 
-        // TODO: require token is being transfered to valid address
+        _mint(to, tokenId);
 
-        // TODO: clear approval
-
-        // TODO: update token counts & transfer ownership of the token ID
-
-        // TODO: emit correct event
+        emit Transfer(from, to, tokenId);
     }
 
     /**
