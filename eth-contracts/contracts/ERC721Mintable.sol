@@ -545,10 +545,10 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 
 contract JeffOwnERC721Token is ERC721Metadata("JeffOwn", "J-O", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {
     function mint(address to, uint256 tokenId) public onlyOwner returns(bool) {
-        uint256 balanceBeforeMint = balanceOf(to);
-        _mint(to, tokenId);
-        setTokenURI(tokenId);
-        uint256 balanceAfterMint = balanceOf(to);
+        uint256 balanceBeforeMint = super.balanceOf(to);
+        super._mint(to, tokenId);
+        super.setTokenURI(tokenId);
+        uint256 balanceAfterMint = super.balanceOf(to);
         return balanceAfterMint > balanceBeforeMint;
     }
 }
