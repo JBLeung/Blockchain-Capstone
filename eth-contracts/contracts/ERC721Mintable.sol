@@ -270,9 +270,13 @@ contract ERC721 is Pausable, ERC165 {
         // require token is being transfered to valid address
         require(to != address(0), "Receive address is not valid");
 
+
         _clearApproval(tokenId);
 
-        _mint(to, tokenId);
+        _ownedTokensCount[from].decrement();
+        _ownedTokensCount[to].increment();
+
+        _tokenOwner[tokenId] = to;
 
         emit Transfer(from, to, tokenId);
     }

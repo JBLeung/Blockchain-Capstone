@@ -1,8 +1,6 @@
 const ERC721MintableComplete = artifacts.require('CustomERC721Token')
 
 contract('TestERC721Mintable', (accounts) => {
-  const tokenName = 'Custom'
-  const tokenSymbol = 'CUS'
   const accountOne = accounts[0]
   const accountTwo = accounts[1]
   const accountThree = accounts[3]
@@ -38,11 +36,11 @@ contract('TestERC721Mintable', (accounts) => {
 
     it('should transfer token from one owner to another', async () => {
       const tokenId = 2
-      const ownerAddressBeforeTransfer = await testingContract.ownerOf(tokenId)
+      const ownerAddressBeforeTransfer = await testingContract.ownerOf(tokenId, {from: accountTwo})
       await testingContract.transferFrom(accountTwo, accountThree, tokenId, {from: accountTwo})
       const ownerAddressAfterTransfer = await testingContract.ownerOf(tokenId)
       assert.equal(ownerAddressBeforeTransfer, accountTwo, 'Before transfer, owner should be accountTwo')
-      assert.equal(ownerAddressAfterTransfer, accountThree, 'Before transfer, owner should be accountThree')
+      assert.equal(ownerAddressAfterTransfer, accountThree, 'After transfer, owner should be accountThree')
     })
   })
 
