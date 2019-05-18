@@ -25,6 +25,9 @@
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
+  contracts_directory: './eth-contracts/contracts',
+  migrations_directory: './eth-contracts/migrations',
+  contracts_build_directory: './eth-contracts/build',
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -85,7 +88,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: '0.5.3', // Fetch exact version from solc-bin (default: truffle's version)
+      version: '0.5.2', // Fetch exact version from solc-bin (default: truffle's version)
       docker: true, // Use "0.5.1" you've installed locally with docker (default: false)
       settings: { // See the solidity docs for advice about optimization and evmVersion
         optimizer: {

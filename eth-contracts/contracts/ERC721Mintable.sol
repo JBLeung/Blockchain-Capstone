@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.2;
 
 import "../node_modules/openzeppelin-solidity/contracts/utils/Address.sol";
 import "../node_modules/openzeppelin-solidity/contracts/drafts/Counters.sol";
@@ -17,12 +17,14 @@ contract Ownable {
         _;
     }
 
-    constructor(address ownerAddress) public {
-        _owner = ownerAddress;
+    constructor () internal {
+        _owner = msg.sender;
+        emit OwnerShiptransfered(_owner);
     }
 
     function transferOwnership(address newOwner) public onlyOwner {
         require(newOwner != address(0), "New owner address is not valid");
+        require(newOwner != newOwner, "Cannot transfer back to a same owner");
         _owner = newOwner;
         emit OwnerShiptransfered(newOwner);
     }
@@ -39,7 +41,7 @@ contract Pausable is Ownable {
     event Paused(address caller);
     event Unpaused(address caller);
 
-    constructor() public {
+    constructor() internal {
         _paused = false;
     }
 
@@ -530,12 +532,6 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
         return _tokenURIs[tokenId];
     }
 
-    // TODO: Create an internal function to set the tokenURI of a specified tokenId
-    // It should be the _baseTokenURI + the tokenId in string form
-    // TIP #1: use strConcat() from the imported oraclizeAPI lib to set the complete token URI
-    // TIP #2: you can also use uint2str() to convert a uint to a string
-        // see https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol for strConcat()
-    // require the token exists before setting
     function setTokenURI(uint256 tokenId) internal {
         require(_exists(tokenId), "Token not exisit");
         _tokenURIs[tokenId] = strConcat(_baseTokenURI, uint2str(tokenId));
@@ -543,7 +539,8 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 }
 
 
-contract JeffOwnERC721Token is ERC721Metadata("JeffOwn", "J-O", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {
+contract CustomERC721Token is ERC721Metadata("Custom", "Cus", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {
+
     function mint(address to, uint256 tokenId) public onlyOwner returns(bool) {
         uint256 balanceBeforeMint = super.balanceOf(to);
         super._mint(to, tokenId);

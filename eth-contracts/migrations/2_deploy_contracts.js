@@ -1,8 +1,10 @@
 // migrating the appropriate contracts
-var SquareVerifier = artifacts.require("./SquareVerifier.sol");
-var SolnSquareVerifier = artifacts.require("./SolnSquareVerifier.sol");
+const CustomERC721Token = artifacts.require('CustomERC721Token')
+const SquareVerifier = artifacts.require('Verifier')
+const SolnSquareVerifier = artifacts.require('SolnSquareVerifier')
 
 module.exports = function(deployer) {
-  deployer.deploy(SquareVerifier);
-  deployer.deploy(SolnSquareVerifier);
-};
+  deployer.deploy(CustomERC721Token)
+  deployer.deploy(SquareVerifier)
+  deployer.deploy(SolnSquareVerifier)
+}
