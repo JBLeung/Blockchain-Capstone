@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+
+  zokrates:
+    image: zokrates/zokrates
+    volumes:
+      - ./zokrates/code:/home/zokrates/code
+      - ./zokrates/build:/home/zokrates/build
+      - ./zokrates/script:/home/zokrates/script
+    # command: ["sleep","36000000"]
+    command: sh ./script/build.sh
