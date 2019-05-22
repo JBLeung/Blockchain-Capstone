@@ -12,5 +12,7 @@ dapp:
 	npm run dapp;
 testERC721Mintable:
 	truffle test ./eth-contracts/test/TestERC721Mintable.js
+testTestSquareVerifier:
+	truffle test ./eth-contracts/test/TestSquareVerifier.js
 docker_zokrates:
 	docker-compose up zokrates
