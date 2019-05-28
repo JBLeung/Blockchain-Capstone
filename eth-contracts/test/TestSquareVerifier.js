@@ -23,14 +23,17 @@ contract('Verifier', (accounts) => {
           H: ['0x125fc1a384715292ba89ddc3b621423e1fedee997339ea0ca38a4ff0eda36329', '0x0ede3203bdb0021e4ce7f23e772f1f3483d52f2fdf2284a8834756bdaffea88d'],
           K: ['0x181a4d3540b2a7f3d00fe32fa08508af9a17b15d34ed6fc775d86ffc325cee5d', '0x2cb46503319ef1d94df84bf970e38487aedc3f793f813bacc4c801212c616476'],
         },
-        input: [9, 1],
+        input: {
+          correct: [9, 1],
+          incorrect: [3, 3],
+        },
       }
 
       const resultWithCorrectProof = await this.contract.verifyTx.call(proof.A, proof.A_p, proof.B, proof.B_p, proof.C,
-        proof.C_p, proof.H, proof.K, input)
+        proof.C_p, proof.H, proof.K, input.correct)
 
       const resultWithIncorrectProof = await this.contract.verifyTx.call(proof.A, proof.A_p, proof.B, proof.B_p, proof.C,
-        proof.C_p, proof.H, proof.K, [3, 3])
+        proof.C_p, proof.H, proof.K, input.incorrect)
       assert.equal(resultWithCorrectProof, true, 'proof work as normal')
       assert.equal(resultWithIncorrectProof, false, 'Should be fail')
     })
