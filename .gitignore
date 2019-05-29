@@ -2,7 +2,7 @@
 logs
 *.log
 */npm-debug.log*
-*/package-lock.json*
+**/package-lock.json*
 */yarn-debug.log*
 */yarn-error.log*
 */src/dapp/config.json
@@ -40,7 +40,7 @@ bower_components
 bin
 
 # Dependency directories
-*/node_modules/
+**/node_modules/
 */jspm_packages/
 
 # Typescript v1 declaration files
@@ -60,8 +60,5 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
 
 ~$*.pptx
