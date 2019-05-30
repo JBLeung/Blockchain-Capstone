@@ -22,3 +22,5 @@ docker_zokrates:
 	docker-compose up zokrates
 rinkeby:
 	make clean; truffle migrate --reset --network rinkeby
+mint:
+	node scripts/mint.js

@@ -18,8 +18,8 @@
  *
  */
 
-const HDWalletProvider = require('./eth-contracts/node_modules/truffle-hdwallet-provider')
-require('./eth-contracts/node_modules/dotenv').config()
+const HDWalletProvider = require('truffle-hdwallet-provider')
+require('dotenv').config()
 
 // const mnemonic = ''
 // const infuraEndpoint = ''
@@ -54,10 +54,10 @@ module.exports = {
       network_id: '*', // Any network (default: none)
     },
     rinkeby: {
-      provider: () => new HDWalletProvider(process.env.MNENOMIC, `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`),
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`),
       network_id: 4,
-      gas: 5000000,
-      gasPrice: 10000000000,
+      gas: 6500000,
+      gasPrice: 20000000000,
       skipDryRun: true,
     },
     // rinkeby: {
