@@ -10,13 +10,6 @@ Compiling your contracts...
 > Compiling ./eth-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol
 > Compiling ./eth-contracts/node_modules/openzeppelin-solidity/contracts/utils/Address.sol
 
-    > compilation warnings encountered:
-
-/Users/jeff_leung/workspace/Udacity/BlockchainDeveloper/Git/Blockchain-Capstone/eth-contracts/contracts/Oraclize.sol:367:5: Warning: Function state mutability can be restricted to pure
-    function __callback(bytes32 _myid, string memory _result) public {
-    ^ (Relevant source part starts here and spans across multiple lines).
-
-> Artifacts written to /Users/jeff_leung/workspace/Udacity/BlockchainDeveloper/Git/Blockchain-Capstone/eth-contracts/build
 > Compiled successfully using:
    - solc: 0.5.2+commit.1df8f40c.Linux.g++
 
