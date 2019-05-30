@@ -1,3 +1,4 @@
+const SquareVerifier = artifacts.require('Verifier')
 const ERC721MintableComplete = artifacts.require('SolnSquareVerifier')
 
 contract('TestERC721Mintable', (accounts) => {
@@ -8,7 +9,8 @@ contract('TestERC721Mintable', (accounts) => {
 
   describe('match erc721 spec', () => {
     beforeEach(async () => {
-      testingContract = await ERC721MintableComplete.new({from: accountOne})
+      const verifierContract = await SquareVerifier.new({from: accountOne})
+      testingContract = await ERC721MintableComplete.new(verifierContract.address, {from: accountOne})
 
       const minitPromise = []
       minitPromise.push(testingContract.mint(accountOne, 1, {from: accountOne}))
@@ -46,7 +48,8 @@ contract('TestERC721Mintable', (accounts) => {
 
   describe('have ownership properties', () => {
     beforeEach(async () => {
-      testingContract = await ERC721MintableComplete.new({from: accountOne})
+      const verifierContract = await SquareVerifier.new({from: accountOne})
+      testingContract = await ERC721MintableComplete.new(verifierContract.address, {from: accountOne})
     })
 
     it('should fail when minting when address is not contract owner', async () => {

@@ -3,7 +3,6 @@ pragma solidity ^0.5.2;
 import "./Verifier.sol";
 import "./ERC721Mintable.sol";
 
-
 contract SolnSquareVerifier is CustomERC721Token {
     using Address for address;
     using SafeMath for uint256;
@@ -14,8 +13,8 @@ contract SolnSquareVerifier is CustomERC721Token {
 
     event SolutionAdded(bytes32 solutionHash);
 
-    constructor () public {
-        verifierContract = Verifier(msg.sender);
+    constructor (address verifierContractAddress) public {
+        verifierContract = Verifier(verifierContractAddress);
     }
 
     struct Solutions {
