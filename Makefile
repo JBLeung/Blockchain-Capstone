@@ -16,5 +16,9 @@ testSquareVerifier:
 	truffle test ./eth-contracts/test/TestSquareVerifier.js
 testSolnSquareVerifier:
 	truffle test ./eth-contracts/test/TestSolnSquareVerifier.js
+testAll:
+	truffle test ./eth-contracts/test/*.js
 docker_zokrates:
 	docker-compose up zokrates
+rinkeby:
+	make clean; truffle migrate --reset --network rinkeby
