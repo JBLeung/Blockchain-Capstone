@@ -1,13 +1,31 @@
 Compiling your contracts...
 ===========================
-> Everything is up to date, there is nothing to compile.
+> Compiling ./eth-contracts/contracts/ERC721Mintable.sol
+> Compiling ./eth-contracts/contracts/Migrations.sol
+> Compiling ./eth-contracts/contracts/Oraclize.sol
+> Compiling ./eth-contracts/contracts/SolnSquareVerifier.sol
+> Compiling ./eth-contracts/contracts/Verifier.sol
+> Compiling ./eth-contracts/node_modules/openzeppelin-solidity/contracts/drafts/Counters.sol
+> Compiling ./eth-contracts/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol
+> Compiling ./eth-contracts/node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol
+> Compiling ./eth-contracts/node_modules/openzeppelin-solidity/contracts/utils/Address.sol
+
+    > compilation warnings encountered:
+
+/Users/jeff_leung/workspace/Udacity/BlockchainDeveloper/Git/Blockchain-Capstone/eth-contracts/contracts/Oraclize.sol:367:5: Warning: Function state mutability can be restricted to pure
+    function __callback(bytes32 _myid, string memory _result) public {
+    ^ (Relevant source part starts here and spans across multiple lines).
+
+> Artifacts written to /Users/jeff_leung/workspace/Udacity/BlockchainDeveloper/Git/Blockchain-Capstone/eth-contracts/build
+> Compiled successfully using:
+   - solc: 0.5.2+commit.1df8f40c.Linux.g++
 
 
-Migrations dry-run (simulation)
-===============================
-> Network name:    'rinkeby-fork'
+Starting migrations...
+======================
+> Network name:    'rinkeby'
 > Network id:      4
-> Block gas limit: 0x6abf37
+> Block gas limit: 0x6adda5
 
 
 1_initial_migration.js
@@ -15,40 +33,37 @@ Migrations dry-run (simulation)
 
    Deploying 'Migrations'
    ----------------------
-   > block number:        4468089
-   > block timestamp:     1559150966
+   > transaction hash:    0x40c3cf81cd2f0c2868dbddfae3fd3bdc72b8dcd3870daef26e5a1955379f2310
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x74C72caf904c306A4023dD9F14Ac34B651a0D533
+   > block number:        4471568
+   > block timestamp:     1559203170
    > account:             0xca62a2C21AAa5BD64ccd984584C8e5E2e3636fC1
-   > balance:             17.74735474
-   > gas used:            258226
+   > balance:             17.74720474
+   > gas used:            273226
    > gas price:           10 gwei
    > value sent:          0 ETH
-   > total cost:          0.00258226 ETH
+   > total cost:          0.00273226 ETH
 
+
+   > Saving migration to chain.
+   > Saving artifacts
    -------------------------------------
-   > Total cost:          0.00258226 ETH
+   > Total cost:          0.00273226 ETH
 
 
 2_deploy_contracts.js
 =====================
 
-   Deploying 'CustomERC721Token'
-   -----------------------------
-   > block number:        4468091
-   > block timestamp:     1559150989
-   > account:             0xca62a2C21AAa5BD64ccd984584C8e5E2e3636fC1
-   > balance:             17.71183966
-   > gas used:            3524480
-   > gas price:           10 gwei
-   > value sent:          0 ETH
-   > total cost:          0.0352448 ETH
-
-
    Deploying 'Verifier'
    --------------------
-   > block number:        4468092
-   > block timestamp:     1559151007
+   > transaction hash:    0x904f2581db2ce084ae48594a06e64371b003af38cfe00ff1e91ffbd74882d79e
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x0Bc9B62A499F1AcbbfD94F861A43a96b280F4AAE
+   > block number:        4471570
+   > block timestamp:     1559203200
    > account:             0xca62a2C21AAa5BD64ccd984584C8e5E2e3636fC1
-   > balance:             17.69408968
+   > balance:             17.72903448
    > gas used:            1774998
    > gas price:           10 gwei
    > value sent:          0 ETH
@@ -57,20 +72,26 @@ Migrations dry-run (simulation)
 
    Deploying 'SolnSquareVerifier'
    ------------------------------
-   > block number:        4468093
-   > block timestamp:     1559151030
+   > transaction hash:    0xe6611daba8670e712435ab52547ec5541b4a96ff965af53b81038f82af90d2e9
+   > Blocks: 2            Seconds: 21
+   > contract address:    0x19e975DF115f86c45Dd46A86b147F94b978D3c5B
+   > block number:        4471572
+   > block timestamp:     1559203230
    > account:             0xca62a2C21AAa5BD64ccd984584C8e5E2e3636fC1
-   > balance:             17.64649623
-   > gas used:            4759345
+   > balance:             17.67974114
+   > gas used:            4929334
    > gas price:           10 gwei
    > value sent:          0 ETH
-   > total cost:          0.04759345 ETH
+   > total cost:          0.04929334 ETH
 
+
+   > Saving migration to chain.
+   > Saving artifacts
    -------------------------------------
-   > Total cost:          0.10058823 ETH
+   > Total cost:          0.06704332 ETH
 
 
 Summary
 =======
-> Total deployments:   4
-> Final cost:          0.10317049 ETH
+> Total deployments:   3
+> Final cost:          0.06977558 ETH
