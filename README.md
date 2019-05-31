@@ -17,3 +17,17 @@ The capstone will build upon the knowledge you have gained in the course in orde
 # Development
 To decrypt encrypted files
 `git-crypt unlock`
+
+## rinkeby.etherscan.io
+1. To verify rinkeby contract in rinkeby.etherscan.io
+please run `make flattener` and copy the code of `./eth-contracts/flattener/flattener.sol` to rinkeby.etherscan.io
+2. get ABI-encoded contract code in https://abi.hashex.org/#
+
+## contract methods
+### to mint new token
+`make contract-mint TOKEN_ID=<token_id>`
+
+### get totalSupply
+`make contract-totalSupply`
+### get token owner
+`make contract-ownerOf`

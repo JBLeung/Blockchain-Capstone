@@ -1,57 +1,57 @@
+const {init} = require('./main')
 
-const HDWalletProvider = require('truffle-hdwallet-provider')
-const Web3 = require('web3')
-const {init, NFT_ABI} = require('./main')
-
-init()
-
-const {
-  MNEMONIC, INFURA_KEY, NFT_CONTRACT_ADDRESS, OWNER_ADDRESS, NETWORK,
-} = process.env
-const NUM_CREATURES = 1
-
-
-async function mint() {
-  try {
-    const provider = new HDWalletProvider(MNEMONIC, `https://${NETWORK}.infura.io/v3/${INFURA_KEY}`)
-    const web3 = new Web3(
-      provider,
-    )
-
-    if (NFT_CONTRACT_ADDRESS) {
-      const nftContract = new web3.eth.Contract(NFT_ABI, NFT_CONTRACT_ADDRESS, { gasLimit: '1000000' })
-
+async function mint(web3, contract, tokenId = false, senderAddress) {
+  if (tokenId && web3.utils.isAddress(senderAddress)) {
+    try {
       // Creatures issued directly to the owner.
-      const totalSupplyBefore = await nftContract.methods.totalSupply().call()
-      console.log('totalSupplyBefore: ', web3.utils.hexToNumber(totalSupplyBefore))
+      const totalSupplyBefore = web3.utils.hexToNumber(await contract.methods.totalSupply().call())
+      console.log('totalSupplyBefore: ', totalSupplyBefore)
 
-      const mintPromises = []
+      console.log(`Start Mint tokenId: ${tokenId}`)
 
-      const {gasLimit} = await web3.eth.getBlock('latest', false)
-      console.log('gasLimit', gasLimit, gasLimit - 1)
-      for (let i = 0; i < NUM_CREATURES; i += 1) {
-        console.log(`loop ${i} start`)
-        mintPromises.push(nftContract.methods.mint(OWNER_ADDRESS, i).send({ from: OWNER_ADDRESS, gas: gasLimit - 1 }))
-        console.log(`loop ${i} end`)
-      }
-
-      console.log(`mintPromises ${mintPromises.length}`)
-      const mintResults = await Promise.all(mintPromises)
-      for (let i = 0; i < mintResults.length; i += 1) {
-        console.log(`mintResults:${i}:`, mintResults[i])
-      }
-      const totalSupplyAfter = await nftContract.methods.totalSupply().call()
-      console.log('totalSupplyAfter: ', web3.utils.hexToNumber(totalSupplyAfter))
-
-      const balanceOf = await nftContract.methods.balanceOf(OWNER_ADDRESS).call()
-      console.log('balanceOf: ', web3.utils.hexToNumber(balanceOf))
-
+      contract.methods.mint(senderAddress, web3.eth.abi.encodeParameter('uint256', tokenId)).send({ from: senderAddress})
+        .on('error', async (error) => {
+          const tokenIdOwnerAdress = await contract.methods.ownerOf(web3.eth.abi.encodeParameter('uint256', tokenId)).call()
+          if (web3.utils.isAddress((tokenIdOwnerAdress))) {
+            console.log(`TokenID:${tokenId} is already mint, owner:${tokenIdOwnerAdress}`)
+          } else {
+            console.log('ERROR: ', error.message)
+          }
+          process.exit()
+        })
+        .on('transactionHash', async (transactionHash) => {
+          console.log(`TransactionHash: ${transactionHash}`)
+          console.log('please wait')
+        })
+        .on('receipt', (receipt) => {
+          console.log(`Receipt: ${receipt.contractAddress}`) // contains the new contract address
+          process.exit()
+        })
+        .on('confirmation', (confirmationNumber, receipt) => {
+          console.log(`confirmationNumber: ${confirmationNumber}`) // contains the new contract address
+          console.log('confirmation receipt:', receipt) // contains the new contract address
+          process.exit()
+        })
+    } catch (err) {
+      console.error(err)
       process.exit()
     }
+  } else {
+    console.error('missing tokenId or senderAddress')
+    process.exit()
+  }
+}
+init().then(async ({web3, contract}) => {
+  try {
+    const {
+      OWNER_ADDRESS,
+    } = process.env
+    const TOKEN_ID = process.argv[2]
+    await mint(web3, contract, TOKEN_ID, OWNER_ADDRESS)
   } catch (err) {
     console.error(err)
     process.exit()
   }
-}
-
-mint()
+}).catch((err) => {
+  console.error(err)
+})

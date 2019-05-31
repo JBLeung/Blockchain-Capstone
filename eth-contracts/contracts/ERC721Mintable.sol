@@ -543,7 +543,10 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 }
 
 
-contract CustomERC721Token is ERC721Metadata("Custom", "Cus", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {
+contract CustomERC721Token is ERC721Metadata {
+
+    constructor() ERC721Metadata("Custom", "Cus", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") public{}
+
 
     function mint(address to, uint256 tokenId) public onlyOwner returns(bool) {
         uint256 balanceBeforeMint = super.balanceOf(to);

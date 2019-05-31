@@ -1,15 +1,7 @@
-const init = () => {
-  require('dotenv').config()
 
-  const {
-    MNEMONIC, INFURA_KEY, OWNER_ADDRESS, NETWORK,
-  } = process.env
+const HDWalletProvider = require('truffle-hdwallet-provider')
+const Web3 = require('web3')
 
-  if (!MNEMONIC || !INFURA_KEY || !OWNER_ADDRESS || !NETWORK) {
-    console.error('Please set a mnemonic, infura key, owner, network, and contract address.')
-    process.exit()
-  }
-}
 const NFT_ABI = [
   {
     constant: true,
@@ -542,6 +534,34 @@ const NFT_ABI = [
   },
 ]
 
+const init = async () => {
+  require('dotenv').config()
+
+  const {
+    MNEMONIC, INFURA_KEY, NFT_CONTRACT_ADDRESS, OWNER_ADDRESS, NETWORK,
+  } = process.env
+
+  if (!MNEMONIC || !INFURA_KEY || !OWNER_ADDRESS || !NETWORK) {
+    console.error('Please set a mnemonic, infura key, owner, network, and contract address.')
+    process.exit()
+  }
+
+  try {
+    const provider = new HDWalletProvider(MNEMONIC, `https://${NETWORK}.infura.io/v3/${INFURA_KEY}`)
+    const web3 = new Web3(
+      provider,
+    )
+    if (NFT_CONTRACT_ADDRESS) {
+      const contract = new web3.eth.Contract(NFT_ABI, NFT_CONTRACT_ADDRESS, { gasLimit: '8000000' })
+      return {web3, contract}
+    }
+    return false
+  } catch (err) {
+    console.error(err)
+    return false
+  }
+}
+
 module.exports = {
-  init, NFT_ABI,
+  init,
 }

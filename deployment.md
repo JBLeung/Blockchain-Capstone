@@ -9,7 +9,6 @@ Compiling your contracts...
 > Compiling openzeppelin-solidity/contracts/math/SafeMath.sol
 > Compiling openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol
 > Compiling openzeppelin-solidity/contracts/utils/Address.sol
-
 > Compiled successfully using:
    - solc: 0.5.2+commit.1df8f40c.Linux.g++
 
@@ -26,23 +25,23 @@ Starting migrations...
 
    Deploying 'Migrations'
    ----------------------
-   > transaction hash:    0xabd2ab064099596208dbc5b774af61cc398f6422379e263342e9da9538f69c60
-   > Blocks: 1            Seconds: 13
-   > contract address:    0x83347faB1a801414406351f4c4634381c0192F12
-   > block number:        4473802
-   > block timestamp:     1559236682
+   > transaction hash:    0x0e535042ab43d5dbf5f12a125e46a6f7c38c22898ff768a5b59422b5553e5642
+   > Blocks: 0            Seconds: 5
+   > contract address:    0x3037cCC73326164cD1723898cCE3707430fAf570
+   > block number:        4473976
+   > block timestamp:     1559239292
    > account:             0xca62a2C21AAa5BD64ccd984584C8e5E2e3636fC1
-   > balance:             36.351331239
+   > balance:             36.186978508
    > gas used:            273226
-   > gas price:           20 gwei
+   > gas price:           100 gwei
    > value sent:          0 ETH
-   > total cost:          0.00546452 ETH
+   > total cost:          0.0273226 ETH
 
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:          0.00546452 ETH
+   > Total cost:           0.0273226 ETH
 
 
 2_deploy_contracts.js
@@ -50,43 +49,41 @@ Starting migrations...
 
    Deploying 'Verifier'
    --------------------
-   > transaction hash:    0xcd995e04ef8c0cc9fa55b364a5a9ca7945620e8ee3781d9687dbc6b3b82ae38d
+   > transaction hash:    0x587a6e0bdbc0f68df7827921b1a6dfabac21621b1fedde99c07bb442a7abea14
    > Blocks: 1            Seconds: 9
-   > contract address:    0x7772f66DdE049529A45c99A563e93a2C6C272380
-   > block number:        4473806
-   > block timestamp:     1559236742
+   > contract address:    0x0d408d4490F895580c12b7bEc63C5D544B81713B
+   > block number:        4473978
+   > block timestamp:     1559239322
    > account:             0xca62a2C21AAa5BD64ccd984584C8e5E2e3636fC1
-   > balance:             36.314990719
+   > balance:             36.005275908
    > gas used:            1774998
-   > gas price:           20 gwei
+   > gas price:           100 gwei
    > value sent:          0 ETH
-   > total cost:          0.03549996 ETH
+   > total cost:          0.1774998 ETH
 
 
    Deploying 'SolnSquareVerifier'
    ------------------------------
-   > transaction hash:    0xd89de65888546c0649ecaeebab296b01700994dc87fb9f306cf4a519dd64f160
-   > Blocks: 0            Seconds: 5
-   > contract address:    0x6b0d6A3d12C06bc02f1a5F571d4289Ca03D442d4
-   > block number:        4473807
-   > block timestamp:     1559236757
+   > transaction hash:    0x79e764f889e2bf72581c679569e76df1eccded489037dc02bd7d7b89f4b7fed7
+   > Blocks: 1            Seconds: 9
+   > contract address:    0xd0f5BD2Ff7e747999D672C618a39cb68a4693D92
+   > block number:        4473979
+   > block timestamp:     1559239337
    > account:             0xca62a2C21AAa5BD64ccd984584C8e5E2e3636fC1
-   > balance:             36.216402759
+   > balance:             35.512336108
    > gas used:            4929398
-   > gas price:           20 gwei
+   > gas price:           100 gwei
    > value sent:          0 ETH
-   > total cost:          0.09858796 ETH
+   > total cost:          0.4929398 ETH
 
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:          0.13408792 ETH
+   > Total cost:           0.6704396 ETH
 
 
 Summary
 =======
 > Total deployments:   3
-> Final cost:          0.13955244 ETH
-
- jeff_leung@JLeung-MBP-MAB4862  ~/workspace/Udacity/BlockchainDeveloper/Git/Blockchain-Capstone                                                                             ✔  01:19:30
+> Final cost:          0.6977622 ETH

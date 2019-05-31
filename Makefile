@@ -22,5 +22,11 @@ docker_zokrates:
 	docker-compose up zokrates
 rinkeby:
 	make clean; truffle migrate --reset --network rinkeby
-mint:
-	node scripts/mint.js
+contract-mint:
+	node scripts/mint.js $(TOKEN_ID)
+contract-totalSupply:
+	node scripts/totalSupply.js
+contract-ownerOf:
+	node scripts/ownerOf.js $(TOKEN_ID)
+flattener:
+	truffle-flattener ./eth-contracts/contracts/*.sol > ./eth-contracts/flattener/flattener.sol
