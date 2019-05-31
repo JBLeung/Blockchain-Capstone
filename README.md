@@ -13,6 +13,14 @@ The capstone will build upon the knowledge you have gained in the course in orde
 * [Docker](https://docs.docker.com/install/)
 * [ZoKrates](https://github.com/Zokrates/ZoKrates)
 
+# Getting start
+## run test
+1. `npm install`
+2. `make server`
+3. `make testAll`
+
+# opensea marketplase
+1. https://rinkeby.opensea.io/assets/0xd0f5bd2ff7e747999d672c618a39cb68a4693d92/1
 
 # Development
 To decrypt encrypted files
